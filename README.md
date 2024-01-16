@@ -1,2 +1,2 @@
-# mslearn-ai-vision.de-de
-German repo for mslearn-ai-vision
+# mslearn-computer-vision
+Lab-Dateien für Azure KI Vision-Module
