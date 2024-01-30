@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Klassifizieren von Bildern mit einem benutzerdefinierten Azure KI Vision-Modell
+  title: "Klassifizieren von Bildern mit einem benutzerdefinierten Azure\_KI\_Vision-Modell"
   module: Module 2 - Develop computer vision solutions with Azure AI Vision
 ---
 
-# Klassifizieren von Bildern mit einem benutzerdefinierten Azure KI Vision-Modell
+# Klassifizieren von Bildern mit einem benutzerdefinierten Azure KI Vision-Modell
 
 Mit Azure KI Vision können Sie benutzerdefinierte Modelle trainieren, um Objekte mit von Ihnen angegebenen Kennzeichnungen zu klassifizieren und zu erkennen. In diesem Lab erstellen wir ein benutzerdefiniertes Bildklassifizierungsmodell, um Bilder von Obst zu klassifizieren.
 
@@ -27,18 +27,18 @@ Wenn Sie noch keine in Ihrem Abonnement haben, müssen Sie eine **Azure KI Servi
 2. Suchen Sie in der oberen Suchleiste nach *Azure KI Services*, wählen Sie **Azure KI Services** aus und erstellen Sie eine Azure KI Services Multi-Service-Kontoressource mit den folgenden Einstellungen:
     - **Abonnement:** *Geben Sie Ihr Azure-Abonnement an.*
     - **Ressourcengruppe**: *Wählen Sie eine Ressourcengruppe aus, oder erstellen Sie eine (wenn Sie ein eingeschränktes Abonnement verwenden, sind Sie möglicherweise nicht berechtigt, eine neue Ressourcengruppe zu erstellen. Verwenden Sie dann die bereitgestellte Gruppe.)*
-    - **Region**: *Wählen Sie aus „USA, Osten“, „Frankreich, Mitte“, „Südkorea, Mitte“, „Europa, Norden“, „Asien, Südosten“, „Europa, Westen“, „USA, Westen“ oder „Asien, Osten“\**
+    - **Region**: *Wählen Sie aus „USA, Osten“, „Europa, Westen“ und „USA, Westen 2“ aus.\**
     - **Name**: *Geben Sie einen eindeutigen Namen ein.*
     - **Tarif**: Standard S0.
 
-    \*Azure KI Vision 4.0-Features sind derzeit nur in diesen Regionen verfügbar.
+    \*Benutzerdefinierte Azure KI Vision 4.0-Modelltags sind derzeit nur in diesen Regionen verfügbar.
 
 3. Aktivieren Sie die erforderlichen Kontrollkästchen, und erstellen Sie die Ressource.
-4. Wenn die Ressource bereitgestellt wurde, wechseln Sie zu ihr, und zeigen Sie ihre Seite **Schlüssel und Endpunkt** an. In einem zukünftigen Schritt werden Sie den Endpunkt und einen der Schlüssel von dieser Seite benötigen. Speichern Sie sie aus, oder lassen Sie diese Browserregisterkarte geöffnet.
+<!--4. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need the endpoint and one of the keys from this page in a future step. Save them off or leave this browser tab open.-->
 
-Außerdem benötigen wir ein Speicherkonto, um die Trainingsbilder zu speichern.
+Außerdem benötigen wir ein Speicherkonto, um die Schulungsbilder zu speichern.
 
-1. Zurück im Azure-Portal suchen Sie **Speicherkonten** und wählen Sie es aus, und erstellen Sie ein neues Speicherkonto mit den folgenden Einstellungen:
+1. Suchen Sie im Azure-Portal nach **Speicherkonten**, wählen Sie diese Option aus, und erstellen Sie ein neues Speicherkonto mit den folgenden Einstellungen:
     - **Abonnement:** *Geben Sie Ihr Azure-Abonnement an.*
     - **Ressourcengruppe**: *Wählen Sie die gleiche Ressourcengruppe aus, in der Sie Ihre Azure KI Service-Ressource erstellt haben.*
     - **Speicherkontoname**: customclassifySUFFIX 
@@ -46,13 +46,25 @@ Außerdem benötigen wir ein Speicherkonto, um die Trainingsbilder zu speichern.
     - **Region**: *Wählen Sie dieselbe Region aus, die Sie für Ihre Azure KI Service-Ressource verwendet haben.*
     - **Leistung**: Standard
     - **Redundanz**: Lokal redundanter Speicher (LRS)
-1. Wählen Sie nach dem Erstellen des Speicherkontos „Zu Ressource wechseln“ aus.
-1. Aktivieren Sie den öffentlichen Zugriff für das Speicherkonto. Navigieren Sie zur **Konfiguration** in der Gruppe „Einstellungen“, und aktivieren Sie *Anonymen Blob-Zugriff zulassen*. Wählen Sie **Speichern** aus.
-1. Wählen Sie im linken Fensterbereich **Container** aus, und erstellen Sie einen neuen Container mit dem Namen `fruit`, und legen Sie die **Stufe für anonymen Zugriff** auf *Container (anonymer Lesezugriff für Container und Blobs)* fest.
-1. Navigieren Sie zu `fruit`, und laden Sie die Bilder in **02-image-classification\training-images** in diesen Container hoch.
+1. Wechseln Sie während der Erstellung Ihres Speicherkontos zu Visual Studio Code, und erweitern Sie den Ordner **Labfiles/02-image-classification**.
+1. Wählen Sie in diesem Ordner **replace.ps1** aus, und überprüfen Sie den Code. Sie sehen, dass der Name Ihres Speicherkontos durch den Platzhalter in einer JSON-Datei (der COCO-Datei) ersetzt wird, die wir in einem späteren Schritt verwenden. Ersetzen Sie den Platzhalter *in der ersten Zeile nur*für die Datei mit dem Namen Ihres Speicherkontos. Speichern Sie die Datei .
+1. Klicken Sie mit der rechten Maustaste auf den Ordner **02-image-classification**, und öffnen Sie ein integriertes Terminal. Führen Sie den folgenden Befehl aus.
 
+    ```powershell
+    ./replace.ps1
+    ```
 
-## Erstellen eines Trainingsprojekts für ein benutzerdefiniertes Modell
+1. Sie können die COCO-Datei überprüfen, um sicherzustellen, dass Ihr Speicherkontoname vorhanden ist. Wählen Sie **training-images/training_labels.json** aus, und sehen Sie sich die ersten Einträge an. Im Feld *absolute_url* sollte ein ähnlicher Eintrag wie *"https://myStorage.blob.core.windows.net/fruit/...* zu sehen sein. Wenn die erwartete Änderung nicht angezeigt wird, vergewissern Sie sich, dass Sie nur den ersten Platzhalter im PowerShell-Skript aktualisiert haben.
+1. Schließen Sie sowohl die JSON- als auch die PowerShell-Datei, und wechseln Sie zurück in Ihr Browserfenster.
+1. Ihr Speicherkonto sollte vollständig erstellt sein. Wechseln Sie zum Speicherkonto.
+1. Aktivieren Sie den öffentlichen Zugriff für das Speicherkonto. Navigieren Sie im linken Bereich zu **Konfiguration** in der Gruppe **Einstellungen**, und aktivieren Sie *Anonymen Blob-Zugriff zulassen*. Wählen Sie **Speichern** aus.
+1. Wählen Sie im linken Bereich die Option **Container** aus, erstellen Sie einen neuen Container mit dem Namen `fruit`, und stellen Sie **Anonyme Zugriffsebene** auf *Container (anonymer Lesezugriff für Container und Blobs)* ein.
+
+    > **Hinweis**: Wenn **Anonyme Zugriffsebene** deaktiviert ist, aktualisieren Sie die Browserseite.
+
+1. Navigieren Sie zu `fruit`, und laden Sie die Bilder (und die eine JSON-Datei) nach **Labfiles/02-image-classification/training-images** in diesem Container hoch.
+
+## Erstellen eines Trainingsprojekts mit benutzerdefiniertem Modell
 
 Als Nächstes erstellen Sie ein neues Trainingsprojekt für die benutzerdefinierte Bildklassifizierung in Vision Studio.
 
@@ -68,7 +80,7 @@ Als Nächstes erstellen Sie ein neues Trainingsprojekt für die benutzerdefinier
     - Aktivieren Sie das Kontrollkästchen „Vision Studio das Lesen und Schreiben im Blobspeicher erlauben“.
 1. Wählen Sie das Dataset **training_images** aus.
 
-An diesem Punkt der Projekterstellung würden Sie in der Regel **Azure ML Datenbeschriftungsprojekt erstellen** auswählen und Ihre Bilder beschriften. Wenn Sie Zeit haben, können Sie das gerne versuchen, aber für die Zwecke dieses Labs haben wir die Bilder bereits für Sie beschriftet und die resultierende COCO-Datei bereitgestellt.
+An diesem Punkt bei der Projekterstellung wählen Sie in der Regel die Option **Azure ML-Datenbeschriftungsprojekt erstellen** und die Beschriftung für Ihre Bilder aus, wodurch eine COCO-Datei generiert wird. Probieren Sie dies einmal aus, wenn Sie Zeit haben, aber für dieses Lab haben wir die Bilder bereits für Sie beschriftet und die entsprechende COCO-Datei bereitgestellt.
 
 1. Wählen Sie **COCO-Datei hinzufügen** aus.
 1. Wählen Sie in der Dropdownliste **COCO-Datei aus einem BLOB-Container importieren** aus.
