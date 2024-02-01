@@ -49,7 +49,7 @@ In dieser Übung schließen Sie eine teilweise implementierte Clientanwendung ab
     **C#**
     
     ```csharp
-    dotnet add package Azure.AI.Vision.ImageAnalysis --prerelease
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 0.15.1-beta.1
     ```
 
     > **Hinweis**: Wenn Sie aufgefordert werden, Dev Kit-Erweiterungen zu installieren, können Sie die Meldung sicher schließen.
@@ -57,7 +57,7 @@ In dieser Übung schließen Sie eine teilweise implementierte Clientanwendung ab
     **Python**
     
     ```python
-    pip install azure-ai-vision
+    pip install azure-ai-vision==0.15.1b1
     ```
 
 3. Zeigen Sie den Inhalt des Ordners **read-text** an, und beachten Sie, dass er eine Datei für Konfigurationseinstellungen enthält:
