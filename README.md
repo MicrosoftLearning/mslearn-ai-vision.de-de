@@ -1,2 +1,2 @@
-# mslearn-computer-vision
+# mslearn-ai-vision
 Lab-Dateien für Azure KI Vision-Module
