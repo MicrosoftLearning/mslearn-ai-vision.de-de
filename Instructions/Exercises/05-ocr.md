@@ -48,19 +48,20 @@ In dieser Übung schließen Sie eine teilweise implementierte Clientanwendung ab
 
     **C#**
     
-    ```csharp
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 0.15.1-beta.1
+    ```
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.1
     ```
 
     > **Hinweis**: Wenn Sie aufgefordert werden, Dev Kit-Erweiterungen zu installieren, können Sie die Meldung sicher schließen.
 
     **Python**
     
-    ```python
-    pip install azure-ai-vision==0.15.1b1
+    ```
+    pip install azure-ai-vision-imageanalysis==1.0.0b1
     ```
 
 3. Zeigen Sie den Inhalt des Ordners **read-text** an, und beachten Sie, dass er eine Datei für Konfigurationseinstellungen enthält:
+
     - **C#** : appsettings.json
     - **Python**: .env
 
@@ -78,119 +79,93 @@ Eines der Features des **Azure KI Vision SDK** besteht darin, Text aus einem Bil
 
     Öffnen Sie die Codedatei, und suchen Sie oben unter den vorhandenen Namespaceverweisen nach dem Kommentar **Import namespaces** (Namespaces importieren). Fügen Sie dann unter diesem Kommentar den folgenden sprachspezifischen Code hinzu, um die Namespaces zu importieren, die Sie für die Verwendung des Azure KI Vision SDK benötigen:
 
-**C#**
-
-```C#
-// Import namespaces
-using Azure.AI.Vision.Common;
-using Azure.AI.Vision.ImageAnalysis;
-```
-
-**Python**
-
-```Python
-# Import namespaces
-import azure.ai.vision as sdk
-```
+    **C#**
+    
+    ```C#
+    // Import namespaces
+    using Azure.AI.Vision.ImageAnalysis;
+    ```
+    
+    **Python**
+    
+    ```Python
+    # import namespaces
+    from azure.ai.vision.imageanalysis import ImageAnalysisClient
+    from azure.ai.vision.imageanalysis.models import VisualFeatures
+    from azure.core.credentials import AzureKeyCredential
+    ```
 
 2. Beachten Sie in der Codedatei für Ihre Clientanwendung in der Funktion **Main**, dass der Code zum Laden der Konfigurationseinstellungen bereitgestellt wurde. Suchen Sie dann den Kommentar **Azure KI Vision-Client authentifizieren**. Fügen Sie dann unter diesem Kommentar den folgenden sprachspezifischen Code ein, um ein Azure KI Vision-Clientobjekt zu erstellen und zu authentifizieren:
 
-**C#**
-
-```C#
-// Authenticate Azure AI Vision client
-var cvClient = new VisionServiceOptions(
-    aiSvcEndpoint,
-    new AzureKeyCredential(aiSvcKey));
-```
-
-**Python**
-
-```Python
-# Authenticate Azure AI Vision client
-cv_client = sdk.VisionServiceOptions(ai_endpoint, ai_key)
-```
+    **C#**
+    
+    ```C#
+    // Authenticate Azure AI Vision client
+    ImageAnalysisClient client = new ImageAnalysisClient(
+        new Uri(aiSvcEndpoint),
+        new AzureKeyCredential(aiSvcKey));
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Authenticate Azure AI Vision client
+    cv_client = ImageAnalysisClient(
+        endpoint=ai_endpoint,
+        credential=AzureKeyCredential(ai_key)
+    )
+    ```
 
 3. Beachten Sie in der Funktion **Main** unter dem soeben hinzugefügten Code, dass der Code den Pfad zu einer Bilddatei angibt und den Bildpfad dann an eine Funktion namens **GetTextRead** weitergibt. Diese Funktion ist noch nicht vollständig implementiert.
 
-4. Wir fügen Code zum Textkörper der Funktion **GetTextRead** hinzu. Suchen Sie den Kommentar **Verwenden der Funktion „Bild analysieren“ zum Lesen von Text im Bild**. Fügen Sie dann unter diesem Kommentar den folgenden sprachspezifischen Code ein:
- 
-**C#**
+4. Wir fügen Code zum Textkörper der Funktion **GetTextRead** hinzu. Suchen Sie den Kommentar **Verwenden der Funktion „Bild analysieren“ zum Lesen von Text im Bild**. Fügen Sie dann unter diesem Kommentar den folgenden sprachspezifischen Code hinzu. Die visuellen Features werden beim Aufrufen der `Analyze`-Funktion angegeben:
 
-```C#
-// Use Analyze image function to read text in image
-Console.WriteLine($"\nReading text in {imageFile}\n");
+    **C#**
 
-using (var imageData = File.OpenRead(imageFile))
-{    
-    var analysisOptions = new ImageAnalysisOptions()
+    ```C#
+    // Use Analyze image function to read text in image
+    ImageAnalysisResult result = client.Analyze(
+        BinaryData.FromStream(stream),
+        // Specify the features to be retrieved
+        VisualFeatures.Read);
+    
+    stream.Close();
+    
+    // Display analysis results
+    if (result.Read != null)
     {
-        // Specify features to be retrieved
-
-
-    };
-
-    using var imageSource = VisionSource.FromFile(imageFile);
-
-    using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
-
-    var result = analyzer.Analyze();
-
-    if (result.Reason == ImageAnalysisResultReason.Analyzed)
-    {
-        // get image captions
-        if (result.Text != null)
+        Console.WriteLine($"Text:");
+    
+        // Prepare image for drawing
+        System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
+        Graphics graphics = Graphics.FromImage(image);
+        Pen pen = new Pen(Color.Cyan, 3);
+        
+        foreach (var line in result.Read.Blocks.SelectMany(block => block.Lines))
         {
-            Console.WriteLine($"Text:");
-
-            // Prepare image for drawing
-            System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-            Graphics graphics = Graphics.FromImage(image);
-            Pen pen = new Pen(Color.Cyan, 3);
-
-            foreach (var line in result.Text.Lines)
-            {
-                // Return the text detected in the image
-
-
-
-            }
-
-            // Save image
-            String output_file = "text.jpg";
-            image.Save(output_file);
-            Console.WriteLine("\nResults saved in " + output_file + "\n");   
+            // Return the text detected in the image
+    
+    
         }
+            
+        // Save image
+        String output_file = "text.jpg";
+        image.Save(output_file);
+        Console.WriteLine("\nResults saved in " + output_file + "\n");   
     }
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Use Analyze image function to read text in image
+    result = cv_client.analyze(
+        image_data=image_data,
+        visual_features=[VisualFeatures.READ]
+    )
 
-}  
-```
-
-**Python**
-
-```Python
-# Use Analyze image function to read text in image
-print('Reading text in {}\n'.format(image_file))
-
-analysis_options = sdk.ImageAnalysisOptions()
-
-features = analysis_options.features = (
-    # Specify the features to be retrieved
-
-
-)
-
-# Get image analysis
-image = sdk.VisionSource(image_file)
-
-image_analyzer = sdk.ImageAnalyzer(cv_client, image, analysis_options)
-
-result = image_analyzer.analyze()
-
-if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
-
-    # Get image captions
-    if result.text is not None:
+    # Display the image and overlay it with the extracted text
+    if result.read is not None:
         print("\nText:")
 
         # Prepare image for drawing
@@ -200,207 +175,186 @@ if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
         draw = ImageDraw.Draw(image)
         color = 'cyan'
 
-        for line in result.text.lines:
+        for line in result.read.blocks[0].lines:
             # Return the text detected in the image
 
-
-
+            
         # Save image
         plt.imshow(image)
         plt.tight_layout(pad=0)
         outputfile = 'text.jpg'
         fig.savefig(outputfile)
         print('\n  Results saved in', outputfile)
-```
-
-5. Nachdem der Textkörper der Funktion **GetTextRead** hinzugefügt wurde, fügen Sie unter dem Kommentar **Spezifizieren der abzurufenden Features**, den folgenden Code hinzu, um anzugeben, dass Sie Text abrufen möchten:
-
-**C#**
-
-```C#
-// Specify features to be retrieved
-Features =
-    ImageAnalysisFeature.Text
-```
-
-**Python**
-
-```Python
-# Specify features to be retrieved
-sdk.ImageAnalysisFeature.TEXT
-```
-
-7. Suchen Sie in der Codedatei in Visual Studio Code die Funktion **GetTextRead**, und fügen Sie unter dem Kommentar **Rückgabe des im Bild erkannten Textes** den folgenden Code hinzu (dieser Code schreibt den Bildtext in die Konsole und generiert das Bild **text.jpg**, der den Text im Bild hervorhebt):
-
-**C#**
-
-```C#
-// Return the text detected in the image
-Console.WriteLine(line.Content);
-
-var drawLinePolygon = true;
-
-// Return each line detected in the image and the position bounding box around each line
-
-
-
-// Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-
-
-
-// Draw line bounding polygon
-if (drawLinePolygon)
-{
-    var r = line.BoundingPolygon;
-
-    Point[] polygonPoints = {
-        new Point(r[0].X, r[0].Y),
-        new Point(r[1].X, r[1].Y),
-        new Point(r[2].X, r[2].Y),
-        new Point(r[3].X, r[3].Y)
-    };
-
-    graphics.DrawPolygon(pen, polygonPoints);
-}
-```
-
-**Python**
-
-```Python
-# Return the text detected in the image
-print(line.content)    
-
-drawLinePolygon = True
-
-r = line.bounding_polygon
-bounding_polygon = ((r[0], r[1]),(r[2], r[3]),(r[4], r[5]),(r[6], r[7]))
-
-# Return each line detected in the image and the position bounding box around each line
-
-
-
-# Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-
-
-
-# Draw line bounding polygon
-if drawLinePolygon:
-    draw.polygon(bounding_polygon, outline=color, width=3)
-```
-
-8. Wählen Sie im Ordner **read-text/images** das Bild **Lincoln.jpg** aus, um die Datei anzuzeigen, die Ihr Code verarbeiten wird.
-
-9. Untersuchen Sie in der Codedatei Ihrer Anwendung in der Funktion **Main** den Code, der ausgeführt wird, wenn der Benutzer die Menüoption **1** auswählt. Dieser Code ruft die Funktion **GetTextRead** auf und übergibt den Pfad zur Bilddatei *Lincoln.jpg*.
-
-10. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python read-text.py
-```
-
-11. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die der aus dem Bild extrahierte Text ist.
-
-12. Wählen Sie im Ordner **read-text** das Bild **text.jpg** aus, und beachten Sie, wie sich um jede *Textzeile* herum ein Polygon befindet.
-
-13. Kehren Sie zur Codedatei in Visual Studio Code zurück, und suchen Sie den Kommentar **Rückgabe jeder im Bild erkannten Linie und des Positionsbegrenzungsrahmens um jede Linie**. Fügen Sie dann unter diesem Kommentar den folgenden Code ein:
-
-**C#**
-
-```C#
-// Return each line detected in the image and the position bounding box around each line
-string pointsToString = "{" + string.Join(',', line.BoundingPolygon.Select(pointsToString => pointsToString.ToString())) + "}";
-Console.WriteLine($"   Line: '{line.Content}', Bounding Polygon {pointsToString}");
-```
-
-**Python**
-
-```Python
-# Return each line detected in the image and the position bounding box around each line
-print(" Line: '{}', Bounding Polygon: {}".format(line.content, bounding_polygon))
-```
-
-14. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python read-text.py
-```
-
-15. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die jede Textzeile im Bild mit ihrer jeweiligen Position im Bild umfassen sollte.
-
-
-16. Kehren Sie zur Codedatei in Visual Studio Code zurück, und suchen Sie den Kommentar **Rückgabe jedes im Bild erkannten Wortes und des Positionsrahmens um jedes Wort mit der Konfidenzstufe für jedes Wort**. Fügen Sie dann unter diesem Kommentar den folgenden Code ein:
-
-**C#**
-
-```C#
-// Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-foreach (var word in line.Words)
-{
-    pointsToString = "{" + string.Join(',', word.BoundingPolygon.Select(pointsToString => pointsToString.ToString())) + "}";
-    Console.WriteLine($"     Word: '{word.Content}', Bounding polygon {pointsToString}, Confidence {word.Confidence:0.0000}");
-
-    // Draw word bounding polygon
-    drawLinePolygon = false;
-    var r = word.BoundingPolygon;
-
-    Point[] polygonPoints = {
-        new Point(r[0].X, r[0].Y),
-        new Point(r[1].X, r[1].Y),
-        new Point(r[2].X, r[2].Y),
-        new Point(r[3].X, r[3].Y)
-    };
-
-    graphics.DrawPolygon(pen, polygonPoints);
-}
-```
-
-**Python**
-
-```Python
-# Return each word detected in the image and the position bounding box around each word with the confidence level of each word
-for word in line.words:
-    r = word.bounding_polygon
-    bounding_polygon = ((r[0], r[1]),(r[2], r[3]),(r[4], r[5]),(r[6], r[7]))
-    print("  Word: '{}', Bounding Polygon: {}, Confidence: {}".format(word.content, bounding_polygon,word.confidence))
-
-    # Draw word bounding polygon
-    drawLinePolygon = False
-    draw.polygon(bounding_polygon, outline=color, width=3)
-```
-
-17. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python read-text.py
-```
-
-18. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die jedes Wort des Texts im Bild mit ihrer jeweiligen Position im Bild umfassen sollte. Beachten Sie, dass auch die Konfidenzstufe für jedes Wort zurückgegeben wird.
-
-19. Wählen Sie im Ordner **read-text** das Bild **text.jpg** aus, und beachten Sie, dass sich um jedes *Wort* herum ein Polygon befindet.
+    ```
+
+5. Fügen Sie im Code, den Sie soeben zur Funktion **GetTextRead** hinzugefügt haben, unter dem Kommentar **Return the text detected in the image** den folgenden Code hinzu (dieser Code gibt den Bildtext in der Konsole aus und generiert das Bild **text.jpg**, das den Bildtext hervorhebt):
+
+    **C#**
+    
+    ```C#
+    // Return the text detected in the image
+    Console.WriteLine($"   '{line.Text}'");
+    
+    // Draw bounding box around line
+    var drawLinePolygon = true;
+    
+    // Return each line detected in the image and the position bounding box around each line
+    
+    
+    
+    // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+    
+    
+    
+    // Draw line bounding polygon
+    if (drawLinePolygon)
+    {
+        var r = line.BoundingPolygon;
+    
+        Point[] polygonPoints = {
+            new Point(r[0].X, r[0].Y),
+            new Point(r[1].X, r[1].Y),
+            new Point(r[2].X, r[2].Y),
+            new Point(r[3].X, r[3].Y)
+        };
+    
+        graphics.DrawPolygon(pen, polygonPoints);
+    }
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Return the text detected in the image
+    print(f"  {line.text}")    
+    
+    drawLinePolygon = True
+    
+    r = line.bounding_polygon
+    bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
+    
+    # Return the position bounding box around each line
+    
+    
+    # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+    
+    
+    # Draw line bounding polygon
+    if drawLinePolygon:
+        draw.polygon(bounding_polygon, outline=color, width=3)
+    ```
+
+6. Wählen Sie im Ordner **read-text/images** das Bild **Lincoln.jpg** aus, um die Datei anzuzeigen, die Ihr Code verarbeiten wird.
+
+7. Untersuchen Sie in der Codedatei Ihrer Anwendung in der Funktion **Main** den Code, der ausgeführt wird, wenn der Benutzer die Menüoption **1** auswählt. Dieser Code ruft die Funktion **GetTextRead** auf und übergibt den Pfad zur Bilddatei *Lincoln.jpg*.
+
+8. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
+
+    **C#**
+    
+    ```
+    dotnet run
+    ```
+    
+    **Python**
+    
+    ```
+    python read-text.py
+    ```
+
+9. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die der aus dem Bild extrahierte Text ist.
+
+10. Wählen Sie im Ordner **read-text** das Bild **text.jpg** aus, und beachten Sie, wie sich um jede *Textzeile* herum ein Polygon befindet.
+
+11. Kehren Sie zur Codedatei in Visual Studio Code zurück, und suchen Sie den Kommentar **Return the position bounding box around each line**. Fügen Sie dann unter diesem Kommentar den folgenden Code ein:
+
+    **C#**
+    
+    ```C#
+    // Return the position bounding box around each line
+    Console.WriteLine($"   Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");  
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Return the position bounding box around each line
+    print("   Bounding Polygon: {}".format(bounding_polygon))
+    ```
+
+12. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
+
+    **C#**
+    
+    ```
+    dotnet run
+    ```
+    
+    **Python**
+    
+    ```
+    python read-text.py
+    ```
+
+13. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die jede Textzeile im Bild mit ihrer jeweiligen Position im Bild umfassen sollte.
+
+
+14. Kehren Sie zur Codedatei in Visual Studio Code zurück, und suchen Sie den Kommentar **Rückgabe jedes im Bild erkannten Wortes und des Positionsrahmens um jedes Wort mit der Konfidenzstufe für jedes Wort**. Fügen Sie dann unter diesem Kommentar den folgenden Code ein:
+
+    **C#**
+    
+    ```C#
+    // Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+    foreach (DetectedTextWord word in line.Words)
+    {
+        Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence:F4}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
+        
+        // Draw word bounding polygon
+        drawLinePolygon = false;
+        var r = word.BoundingPolygon;
+    
+        Point[] polygonPoints = {
+            new Point(r[0].X, r[0].Y),
+            new Point(r[1].X, r[1].Y),
+            new Point(r[2].X, r[2].Y),
+            new Point(r[3].X, r[3].Y)
+        };
+    
+        graphics.DrawPolygon(pen, polygonPoints);
+    }
+    ```
+    
+    **Python**
+    
+    ```Python
+    # Return each word detected in the image and the position bounding box around each word with the confidence level of each word
+    for word in line.words:
+        r = word.bounding_polygon
+        bounding_polygon = ((r[0].x, r[0].y),(r[1].x, r[1].y),(r[2].x, r[2].y),(r[3].x, r[3].y))
+        print(f"    Word: '{word.text}', Bounding Polygon: {bounding_polygon}, Confidence: {word.confidence:.4f}")
+    
+        # Draw word bounding polygon
+        drawLinePolygon = False
+        draw.polygon(bounding_polygon, outline=color, width=3)
+    ```
+
+15. Speichern Sie Ihre Änderungen, und kehren Sie zum integrierten Terminal in den Ordner **read-text** zurück, und geben Sie den folgenden Befehl ein, um das Programm auszuführen:
+
+    **C#**
+    
+    ```
+    dotnet run
+    ```
+    
+    **Python**
+    
+    ```
+    python read-text.py
+    ```
+
+16. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die jedes Wort des Texts im Bild mit ihrer jeweiligen Position im Bild umfassen sollte. Beachten Sie, dass auch die Konfidenzstufe für jedes Wort zurückgegeben wird.
+
+17. Wählen Sie im Ordner **read-text** das Bild **text.jpg** aus, und beachten Sie, dass sich um jedes *Wort* herum ein Polygon befindet.
 
 ## Verwenden des Azure KI Vision SDK zum Lesen handschriftlicher Texte in einem Bild
 
@@ -412,17 +366,17 @@ In der vorherigen Übung haben Sie klar definierten Text in einem Bild gelesen. 
 
 3. Geben Sie im integrierten Terminal für den Ordner **read-text** folgenden Befehl zur Ausführung des Programms ein:
 
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python read-text.py
-```
+    **C#**
+    
+    ```
+    dotnet run
+    ```
+    
+    **Python**
+    
+    ```
+    python read-text.py
+    ```
 
 4. Wenn Sie dazu aufgefordert werden, geben Sie **1** ein, und beobachten Sie die Ausgabe, die der aus dem Bild extrahierte Text ist.
 
@@ -440,4 +394,4 @@ Wenn Sie die in diesem Lab erstellten Azure-Ressourcen nicht für andere Trainin
 
 ## Weitere Informationen
 
-Weitere Informationen zur Verwendung des **Azure KI Vision**-Diensts zum Lesen von Text finden Sie in der [Dokumentation zu Azure KI Vision](https://learn.microsoft.com/azure/ai-services/computer-vision/overview-ocr).
+Weitere Informationen zur Verwendung des **Azure KI Vision**-Diensts zum Lesen von Text finden Sie in der [Dokumentation zu Azure KI Vision](https://learn.microsoft.com/azure/ai-services/computer-vision/concept-ocr).
