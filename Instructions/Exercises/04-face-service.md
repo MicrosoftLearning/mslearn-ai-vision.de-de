@@ -264,7 +264,7 @@ Jetzt können Sie das SDK verwenden, um den Vision-Dienst aufzurufen und Gesicht
 
 Während der **Azure KI Vision**-Dienst eine grundlegende Gesichtserkennung bietet (zusammen mit vielen anderen Bildanalysefunktionen), bietet der **Gesichtserkennungs**-Dienst umfassendere Funktionen zur Gesichtsanalyse und -erkennung.
 
-1. Wechseln Sie in Visual Studio Code im **Explorer**-Bereich zum Ordner **19-face**, und erweitern Sie je nach Ihrer bevorzugten Sprache den Ordner **C-Sharp** oder **Python**.
+1. Wechseln Sie in Visual Studio Code im Fensterbereich **Explorer** zum Ordner **04-face**, und erweitern Sie je nach Ihrer bevorzugten Sprache den Ordner **C-Sharp** oder **Python**.
 2. Klicken Sie mit der rechten Maustaste auf den Ordner **face-api**, und öffnen Sie ein integriertes Terminal. Installieren Sie dann das SDK-Paket für die Gesichtserkennung, indem Sie den entsprechenden Befehl für Ihre bevorzugte Sprache ausführen:
 
     **C#**
