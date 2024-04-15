@@ -29,8 +29,9 @@ Zunächst müssen Sie sich beim Video Analyzer-Portal anmelden und ein Video hoc
 
 1. Öffnen Sie in Ihrem Browser das Video Analyzer-Portal unter `https://www.videoindexer.ai`.
 2. Wenn Sie bereits über ein Video Analyzer-Konto verfügen, melden Sie sich an. Andernfalls registrieren Sie sich für ein kostenloses Konto und melden sich mit Ihrem Microsoft-Konto (oder einer anderen gültigen Kontoart) an. Wenn Sie Probleme beim Anmelden haben, versuchen Sie, eine private Browsersitzung zu öffnen.
-3. Wählen Sie in Video Analyzer die Option **Hochladen** aus. Wählen Sie dann die Option zur **Eingabe einer URL** aus, geben Sie `https://aka.ms/responsible-ai-video` ein und klicken Sie auf **Hizufügen**. Ändern Sie den Standardnamen in **Responsible AI** (Verantwortungsbewusste künstliche Intelligenz), überprüfen Sie die Standardeinstellungen, aktivieren Sie das Kontrollkästchen, um die Einhaltung der Microsoft-Richtlinien für die Gesichtserkennung zu überprüfen, und laden Sie die Datei hoch.
-4. Warten Sie nach dem Hochladen der Datei einige Minuten, während Video Analyzer sie automatisch indiziert.
+3. Laden Sie auf einer neuen Registerkarte das Video „Verantwortungsvolle KI“ von `https://aka.ms/responsible-ai-video` herunter. Speichern Sie die Datei .
+4. Wählen Sie in Video Analyzer die Option **Hochladen** aus. Wählen Sie anschließend die Option **Dateien suchen** und dann das heruntergeladene Video aus. Wählen Sie **Hinzufügen** aus. Ändern Sie den Standardnamen in **Responsible AI** (Verantwortungsbewusste künstliche Intelligenz), überprüfen Sie die Standardeinstellungen, aktivieren Sie das Kontrollkästchen, um die Einhaltung der Microsoft-Richtlinien für die Gesichtserkennung zu überprüfen, und laden Sie die Datei hoch.
+5. Warten Sie nach dem Hochladen der Datei einige Minuten, während Video Analyzer sie automatisch indiziert.
 
 > **Hinweis**: In dieser Übung verwenden wir dieses Video, um die Funktionalität von Video Analyzer zu erkunden. Sie sollten sich jedoch die Zeit nehmen, es vollständig anzusehen, wenn Sie die Übung beendet haben, da es nützliche Informationen und Anleitungen für die verantwortungsvolle Entwicklung von KI-gestützten Anwendungen enthält! 
 
