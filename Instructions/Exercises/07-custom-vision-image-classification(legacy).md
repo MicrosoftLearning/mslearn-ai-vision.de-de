@@ -1,7 +1,6 @@
 ---
 lab:
-  title: Klassifizieren von Bildern mit Azure KI Custom Vision
-  module: Module 9 - Developing Custom Vision Solutions
+  title: Klassifizieren von Bildern mit Azure AI Custom Vision
 ---
 
 # Klassifizieren von Bildern mit Azure KI Custom Vision
