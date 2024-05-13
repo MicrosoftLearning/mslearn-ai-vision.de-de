@@ -198,7 +198,7 @@ Eines der Features des **Azure KI Vision SDK** besteht darin, Text aus einem Bil
     // Draw bounding box around line
     var drawLinePolygon = true;
     
-    // Return each line detected in the image and the position bounding box around each line
+    // Return the position bounding box around each line
     
     
     
