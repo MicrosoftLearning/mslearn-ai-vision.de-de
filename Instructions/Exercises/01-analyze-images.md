@@ -473,9 +473,9 @@ body = {
 response = requests.post(url, headers=headers, json=body)
 
 image=response.content
-with open("backgroundForeground.png", "wb") as file:
+with open("background.png", "wb") as file:
     file.write(image)
-print('  Results saved in backgroundForeground.png \n')
+print('  Results saved in background.png \n')
 ```
     
 2. Speichern Sie Ihre Änderungen, und führen Sie das Programm einmal für jede der Bilddateien im Ordner **images** aus. Öffnen Sie dabei die Datei **background.png**, die im selben Ordner wie Ihre Codedatei für jedes Bild generiert wird.  Beachten Sie, wie der Hintergrund aus den einzelnen Bildern entfernt wurde.
