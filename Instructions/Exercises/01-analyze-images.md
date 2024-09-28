@@ -24,18 +24,19 @@ Wenn Sie das Coderepository **Azre KI Vision** noch nicht in die Umgebung geklon
 Wenn Sie noch keine in Ihrem Abonnement haben, müssen Sie eine **Azure KI Services**-Ressource bereitstellen.
 
 1. Öffnen Sie das Azure-Portal unter `https://portal.azure.com`, und melden Sie sich mit dem Microsoft-Konto an, das Ihrem Azure-Abonnement zugeordnet ist.
-2. Suchen Sie in der oberen Suchleiste nach *Azure KI Services*, wählen Sie **Azure KI Services** aus und erstellen Sie eine Azure KI Services Multi-Service-Kontoressource mit den folgenden Einstellungen:
+2. Wählen Sie **Ressource erstellen**.
+3. Suchen Sie in der Suchleiste nach *Azure KI Services*, wählen Sie **Azure KI Services** aus und erstellen Sie eine Azure KI Services Multi-Service-Kontoressource mit den folgenden Einstellungen:
     - **Abonnement:** *Geben Sie Ihr Azure-Abonnement an.*
     - **Ressourcengruppe**: *Wählen Sie eine Ressourcengruppe aus, oder erstellen Sie eine (wenn Sie ein eingeschränktes Abonnement verwenden, sind Sie möglicherweise nicht berechtigt, eine neue Ressourcengruppe zu erstellen. Verwenden Sie dann die bereitgestellte Gruppe.)*
-    - **Region**: *Wählen Sie aus „USA, Osten“, „Frankreich, Mitte“, „Südkorea, Mitte“, „Europa, Norden“, „Asien, Südosten“, „Europa, Westen“, „USA, Westen“ oder „Asien, Osten“\**
+    - **Region**: *Wählen Sie aus „USA, Osten“, „USA, Westen“, „Frankreich, Mitte“, „Südkorea, Mitte“, „Europa, Norden“, „Asien, Südosten“, „Europa, Westen“, oder „Asien, Osten“\**
     - **Name**: *Geben Sie einen eindeutigen Namen ein.*
     - **Tarif**: Standard S0.
 
-    \*Azure KI Vision 4.0-Features sind derzeit nur in diesen Regionen verfügbar.
+    \*Azure AI Vision 4.0 mit vollem Funktionsumfang ist derzeit nur in diesen Regionen verfügbar.
 
-3. Aktivieren Sie die erforderlichen Kontrollkästchen, und erstellen Sie die Ressource.
-4. Warten Sie, bis die Bereitstellung abgeschlossen ist, und zeigen Sie dann die Bereitstellungsdetails an.
-5. Wenn die Ressource bereitgestellt wurde, wechseln Sie zu ihr, und zeigen Sie ihre Seite **Schlüssel und Endpunkt** an. Sie benötigen den Endpunkt und einen der Schlüssel von dieser Seite im nächsten Verfahren.
+4. Aktivieren Sie die erforderlichen Kontrollkästchen, und erstellen Sie die Ressource.
+5. Warten Sie, bis die Bereitstellung abgeschlossen ist, und zeigen Sie dann die Bereitstellungsdetails an.
+6. Wenn die Ressource bereitgestellt wurde, wechseln Sie zu ihr, und zeigen Sie ihre Seite **Schlüssel und Endpunkt** an. Sie benötigen den Endpunkt und einen der Schlüssel von dieser Seite im nächsten Verfahren.
 
 ## Vorbereiten der Verwendung des Azure KI Vision SDK
 
@@ -49,7 +50,7 @@ In dieser Übung stellen Sie eine teilweise implementierte Clientanwendung ferti
     **C#**
     
     ```
-    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.1
+    dotnet add package Azure.AI.Vision.ImageAnalysis -v 1.0.0-beta.3
     ```
 
     > **Hinweis**: Wenn Sie aufgefordert werden, Dev Kit-Erweiterungen zu installieren, können Sie die Meldung sicher schließen.
@@ -57,8 +58,10 @@ In dieser Übung stellen Sie eine teilweise implementierte Clientanwendung ferti
     **Python**
     
     ```
-    pip install azure-ai-vision-imageanalysis==1.0.0b1
+    pip install azure-ai-vision-imageanalysis==1.0.0b3
     ```
+
+    > **Tipp**: Wenn Sie dieses Lab auf Ihrem eigenen Computer ausführen, müssen Sie auch `matplotlib` und `pillow` installieren.
     
 3. Zeigen Sie den Inhalt des Ordners **image-analysis** an, und beachten Sie, dass er eine Datei für Konfigurationseinstellungen enthält:
     - **C#** : appsettings.json

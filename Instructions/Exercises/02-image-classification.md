@@ -44,6 +44,8 @@ Außerdem benötigen wir ein Speicherkonto, um die Schulungsbilder zu speichern.
     - **Speicherkontoname**: customclassifySUFFIX 
         - *Hinweis: Ersetzen Sie das `SUFFIX`-Token durch Ihre Initialen oder einen anderen Wert, um sicherzustellen, dass der Ressourcenname global eindeutig ist.*
     - **Region**: *Wählen Sie dieselbe Region aus, die Sie für Ihre Azure KI Service-Ressource verwendet haben.*
+    - **Primärer Dienst**: Azure Blob Storage oder Azure Data Lake Storage Gen 2
+    - **Primäre Workload**: Andere
     - **Leistung**: Standard
     - **Redundanz**: Lokal redundanter Speicher (LRS)
 1. Wechseln Sie während der Erstellung Ihres Speicherkontos zu Visual Studio Code, und erweitern Sie den Ordner **Labfiles/02-image-classification**.
@@ -58,18 +60,19 @@ Außerdem benötigen wir ein Speicherkonto, um die Schulungsbilder zu speichern.
 1. Schließen Sie sowohl die JSON- als auch die PowerShell-Datei, und wechseln Sie zurück in Ihr Browserfenster.
 1. Ihr Speicherkonto sollte vollständig erstellt sein. Wechseln Sie zum Speicherkonto.
 1. Aktivieren Sie den öffentlichen Zugriff für das Speicherkonto. Navigieren Sie im linken Bereich zu **Konfiguration** in der Gruppe **Einstellungen**, und aktivieren Sie *Anonymen Blob-Zugriff zulassen*. Wählen Sie **Speichern** aus.
-1. Wählen Sie im linken Bereich die Option **Container** aus, erstellen Sie einen neuen Container mit dem Namen `fruit`, und stellen Sie **Anonyme Zugriffsebene** auf *Container (anonymer Lesezugriff für Container und Blobs)* ein.
+1. Wählen Sie im linken Bereich unter **Datenspeicher** die Option **Container** und erstellen Sie einen neuen Container mit dem Namen `fruit`. Legen Sie **Anonyme Zugriffsebene** auf *Container (anonymer Lesezugriff für Container und Blobs)* fest.
 
     > **Hinweis**: Wenn **Anonyme Zugriffsebene** deaktiviert ist, aktualisieren Sie die Browserseite.
 
-1. Navigieren Sie zu `fruit`, und laden Sie die Bilder (und die eine JSON-Datei) nach **Labfiles/02-image-classification/training-images** in diesem Container hoch.
+1. Navigieren Sie zu `fruit`, wählen Sie **Hochladen**, und laden Sie die Bilder (und die eine JSON-Datei) in **Labfiles/02-image-classification/training-images** in diesen Container hoch.
 
 ## Erstellen eines Trainingsprojekts mit benutzerdefiniertem Modell
 
 Als Nächstes erstellen Sie ein neues Trainingsprojekt für die benutzerdefinierte Bildklassifizierung in Vision Studio.
 
 1. Navigieren Sie im Webbrowser zu `https://portal.vision.cognitive.azure.com/` und melden Sie sich mit dem Microsoft-Konto an, in dem Sie Ihre Azure KI-Ressource erstellt haben.
-1. Wählen Sie die Kachel **Modelle mit Bildern anpassen** aus (zu finden auf der Registerkarte **Bildanalyse**, wenn sie nicht in der Standardansicht angezeigt wird), und wählen Sie, wenn Sie dazu aufgefordert werden, die Azure KI-Ressource aus, die Sie erstellt haben.
+1. Wählen Sie die Kachel **Modelle mit Bildern anpassen** aus (zu finden auf der Registerkarte **Bildanalyse**, wenn sie nicht in der Standardansicht angezeigt wird).
+1. Wählen Sie das von Ihnen erstellte Azure KI Services-Konto aus.
 1. Wählen Sie in Ihrem Projekt oben **Neues Dataset hinzufügen** aus. Konfigurieren Sie  mit den folgenden Einstellungen:
     - **Datasetname**: training_images
     - **Modelltyp**: Bildklassifizierung
