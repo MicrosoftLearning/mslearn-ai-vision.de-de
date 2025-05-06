@@ -1,10 +1,10 @@
-#README
+# Entwickeln von Lösungen für maschinelles Sehen in Azure
 
-We've turned off the ability to report issues directly on this repo and do not monitor PRs.
+Die Übungen in diesem Repository sollen Ihnen eine praktische Lernerfahrung bieten, in der Sie häufige Aufgaben erkunden, die Entwickelnde beim Erstellen von Lösungen für maschinelles Sehen auf Microsoft Azure durchführen.
 
-Provide feedback here: https://aka.ms/provide-feedback
+> **Hinweis**: Um die Übungen durchführen zu können, benötigen Sie ein Azure-Abonnement, das Ihnen ausreichende Berechtigungen und Kontingente für die Bereitstellung der erforderlichen Azure-Ressourcen und generativen KI-Modelle bietet. Wenn Sie noch kein Konto haben, können Sie sich für ein [Azure-Konto](https://azure.microsoft.com/free) anmelden. Für neue Benutzende gibt es dort eine kostenlose Testoption, die Guthaben für die ersten 30 Tage beinhaltet.
 
-Or, if you are a trainer with a microsoft.com email address, please create a ticket in AzDO.
+[Anzeigen der Übungen auf der GitHub Pages-Website für dieses Repository](https://go.microsoft.com/fwlink/?linkid=2318640)
 
-# mslearn-ai-vision
-Lab-Dateien für Azure KI Vision-Module
+> **Hinweis**: Diese Übungen können zwar eigenständig absolviert werden, sie sind jedoch als Ergänzung zu den Modulen auf [Microsoft Learn](https://learn.microsoft.com/training/paths/create-computer-vision-solutions-azure-ai/) gedacht, in denen Sie tiefer in einige der zugrunde liegenden Konzepte eintauchen können, auf denen diese Übungen basieren.
+
