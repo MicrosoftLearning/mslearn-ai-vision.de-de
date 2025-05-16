@@ -44,7 +44,7 @@ In dieser Übung erstellen Sie eine teilweise implementierte Clientanwendung, di
 
 > **Hinweis**: Sie können auswählen, das SDK für **C#** oder **Python** zu verwenden. Führen Sie in den folgenden Schritten die Aktionen aus, die für Ihre bevorzugte Sprache geeignet sind.
 
-1. Wechseln Sie in Visual Studio Code im Fensterbereich **Explorer** zum Ordner **04-face**, und erweitern Sie je nach Ihrer bevorzugten Sprache den Ordner **C-Sharp** oder **Python**.
+1. Navigieren Sie in Visual Studio Code im Bereich **Explorer** zum Ordner **Labfiles/04-face** und erweitern Sie den Ordner **C-Sharp** oder **Python**, je nach der von Ihnen bevorzugten Sprache.
 2. Klicken Sie mit der rechten Maustaste auf den Ordner **computer-vision**, und öffnen Sie ein integriertes Terminal. Installieren Sie dann das Azure KI Vision SDK-Paket, indem Sie den entsprechenden Befehl für Ihre bevorzugte Sprache ausführen:
 
     **C#**
@@ -203,7 +203,7 @@ Wenn Sie die Konfidenzbewertung aller Personen sehen möchten, die der Dienst er
 
 Während der **Azure KI Vision**-Dienst eine grundlegende Gesichtserkennung bietet (zusammen mit vielen anderen Bildanalysefunktionen), bietet der **Gesichtserkennungs**-Dienst umfassendere Funktionen zur Gesichtsanalyse und -erkennung.
 
-1. Wechseln Sie in Visual Studio Code im Fensterbereich **Explorer** zum Ordner **04-face**, und erweitern Sie je nach Ihrer bevorzugten Sprache den Ordner **C-Sharp** oder **Python**.
+1. Navigieren Sie in Visual Studio Code im Bereich **Explorer** zum Ordner **Labfiles/04-face** und erweitern Sie den Ordner **C-Sharp** oder **Python**, je nach der von Ihnen bevorzugten Sprache.
 2. Klicken Sie mit der rechten Maustaste auf den Ordner **face-api**, und öffnen Sie ein integriertes Terminal. Installieren Sie dann das SDK-Paket für die Gesichtserkennung, indem Sie den entsprechenden Befehl für Ihre bevorzugte Sprache ausführen:
 
     **C#**

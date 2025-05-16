@@ -57,7 +57,7 @@ Um ein Objekterkennungsmodell zu trainieren, müssen Sie ein Custom Vision-Proje
 
 Um ein Objekterkennungsmodell zu trainieren, müssen Sie Bilder hochladen, die die Klassen enthalten, die das Modell identifizieren soll, und sie mit Tags versehen, um Begrenzungsrahmen für jede Objektinstanz anzugeben.
 
-1. Zeigen Sie in Visual Studio Code die Trainingsbilder im Ordner **03-object-detection/training-images** an, in den Sie das Repository geklont haben. Dieser Ordner enthält Bilder von Obst.
+1. In Visual Studio Code finden Sie die Trainingsbilder in dem Ordner **Labfiles/03-object-detection/training-images**, in den Sie das Repository geklont haben. Dieser Ordner enthält Bilder von Obst.
 2. Wählen Sie im Custom Vision-Portal in Ihrem Objekterkennungsprojekt die Option **Bilder hinzufügen** aus, und laden Sie alle Bilder aus dem extrahierten Ordner hoch.
 3. Nachdem die Bilder hochgeladen wurden, wählen Sie das erste Bild aus, um es zu öffnen.
 4. Halten Sie den Mauszeiger über ein beliebiges Objekt im Bild, bis ein automatisch erkannter Bereich wie in der folgenden Abbildung angezeigt wird. Wählen Sie dann das Objekt aus, und ändern Sie gegebenenfalls die Größe des Bereichs, um es zu umranden.
@@ -89,7 +89,7 @@ Sie können die Benutzeroberfläche im Custom Vision-Portal nutzen, um Ihre Bild
 1. Klicken Sie auf das Symbol *Einstellungen* (&#9881;) oben rechts auf der Seite **Trainingsbilder** im Custom Vision-Portal, um die Projekteinstellungen anzuzeigen.
 2. Notieren Sie unter **Allgemein** (auf der linken Seite) die **Projekt-ID**, die dieses Projekt eindeutig identifiziert.
 3. Beachten Sie, dass auf der rechten Seite unter **Ressourcen** der Schlüssel und der Endpunkt angezeigt werden. Dies sind die Details für die *Trainingsressource*. (Sie können diese Informationen auch abrufen, indem Sie die Ressource im Azure-Portal anzeigen.)
-4. Erweitern Sie in Visual Studio Code im Ordner **03-object-detection** je nach Ihrer bevorzugten Sprache den Ordner **C-Sharp** oder **Python**.
+4. Erweitern Sie in Visual Studio Code unter dem Ordner **Labfiles/03-object-detection** den Ordner **C-Sharp** oder **Python**, je nachdem, welche Sprache Sie bevorzugen.
 5. Klicken Sie mit der rechten Maustaste auf den Ordner **train-detector**, und öffnen Sie ein integriertes Terminal. Installieren Sie dann das Custom Vision-Trainingspaket, indem Sie den entsprechenden Befehl für Ihre bevorzugte Sprache ausführen:
 
 **C#**
@@ -145,7 +145,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.1
 
 ## Trainieren und Testen eines Modells
 
-Nachdem Sie nun die Bilder in Ihrem Projekt markiert haben, können Sie ein Modell trainieren. Für
+Nachdem Sie nun die Bilder in Ihrem Projekt markiert haben, können Sie ein Modell trainieren. Sie
 
 1. Klicken Sie im Custom Vision-Projekt auf **Train** (Trainieren), um ein Objekterkennungsmodell anhand der markierten Bilder zu trainieren. Wählen Sie die Option **Quick Training** (Schnelles Training) aus.
 2. Warten Sie, bis der Vorgang abgeschlossen wurde (kann etwa zehn Minuten dauern), und überprüfen Sie die Leistungsmetriken *Genauigkeit*, *Abruf* und *mAP*. Diese Metriken messen die Vorhersagegenauigkeit des Klassifizierungsmodells und sollten jeweils den Wert „Hoch“ haben.
@@ -165,7 +165,7 @@ Jetzt können Sie Ihr trainiertes Modell veröffentlichen, damit es in einer Cli
 
 Nachdem Sie nun das Bildklassifizierungsmodell veröffentlicht haben, können Sie es aus einer Clientanwendung heraus verwenden. Auch hier können Sie wieder wahlweise **C#** oder **Python** verwenden.
 
-1. Wechseln Sie in Visual Studio Code zum Ordner **03-object-detection**, und erweitern Sie im Ordner für Ihre bevorzugte Sprache (**C-Sharp** oder **Python**) den Ordner **test-detector**.
+1. Navigieren Sie in Visual Studio Code zum Ordner **Labfiles/03-object-detection** und erweitern Sie im Ordner für Ihre bevorzugte Sprache (**C-Sharp** oder **Python**) den Ordner **test-detector**.
 2. Klicken Sie mit der rechten Maustaste auf den Ordner **test-detector**, und öffnen Sie ein integriertes Terminal. Geben Sie dann den folgenden SDK-spezifischen Befehl ein, um das Custom Vision-Vorhersagepaket zu installieren:
 
 **C#**

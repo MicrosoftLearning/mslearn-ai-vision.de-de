@@ -82,7 +82,7 @@ Sie können Video Indexer verwenden, um das Video nach Erkenntnissen zu durchsuc
 
 Das Video Indexer-Portal ist eine nützliche Schnittstelle zum Verwalten von Projekten zur Videoindizierung. Es kann jedoch vorkommen, dass Sie das Video und seine Erkenntnisse auch Personen zugänglich machen möchten, die keinen Zugriff auf Ihr Video Indexer-Konto haben. Video Indexer bietet Widgets, die Sie zu diesem Zweck in eine Webseite einbetten können.
 
-1. Öffnen Sie in Visual Studio Code im Ordner **06-video-indexer** die Datei **analyze-video.html**. Dies ist eine einfache HTML-Seite, zu der Sie die Widgets **Player** und **Insights** (Erkenntnisse) von Video Indexer hinzufügen werden. Beachten Sie den Verweis auf das Skript **vb.widgets.mediator.js** in der Kopfzeile – dieses Skript ermöglicht es mehreren Video Indexer-Widgets auf der Seite, miteinander zu interagieren.
+1. Öffnen Sie in Visual Studio Code im Ordner **Labfiles/06-video-indexer** die Datei **analyze-video.html**. Dies ist eine einfache HTML-Seite, zu der Sie die Widgets **Player** und **Insights** (Erkenntnisse) von Video Indexer hinzufügen werden. Beachten Sie den Verweis auf das Skript **vb.widgets.mediator.js** in der Kopfzeile – dieses Skript ermöglicht es mehreren Video Indexer-Widgets auf der Seite, miteinander zu interagieren.
 2. Kehren Sie im Video Indexer-Portal zur Seite **Mediendateien** zurück und öffnen Sie Ihr **Verantwortungsbewusste KI**-Video.
 3. Wählen Sie unter dem Videoplayer **&lt;/&gt; Embed** (Einbetten) aus, um den HTML-iframe-Code zum Einbetten der Widgets anzuzeigen.
 4. Wählen Sie im Dialogfeld **Share and Embed** (Freigeben und Einbetten) das Widget **Player** aus, stellen Sie die Videogröße auf 560 x 315, und kopieren Sie dann den Einbettungscode in die Zwischenablage.
@@ -117,7 +117,7 @@ Alle Interaktionen mit der Video Indexer-REST-API folgen dem gleichen Muster:
 - Eine erste Anforderung an die Methode **AccessToken** mit dem API-Schlüssel in der Kopfzeile wird verwendet, um ein Zugriffstoken zu erhalten.
 - Nachfolgende Anforderungen verwenden das Zugriffstoken zur Authentifizierung, wenn Sie REST-Methoden zur Arbeit mit Videos aufrufen.
 
-1. Öffnen Sie in Visual Studio Code im Ordner **06-video-indexer** die Datei **get-videos.ps1**.
+1. Öffnen Sie in Visual Studio Code im Ordner **Labfiles/06-video-indexer** die Datei **get-videos.ps1**.
 2. Ersetzen Sie im PowerShell-Skript die Platzhalter **YOUR_ACCOUNT_ID** und **YOUR_API_KEY** durch die Werte für die Konto-ID und den API-Schlüssel, die Sie zuvor ermittelt haben.
 3. Beachten Sie, dass der *Standort* für ein kostenloses Konto „trial“ ist. Wenn Sie ein uneingeschränktes Video Indexer-Konto (mit einer zugehörigen Azure-Ressource) erstellt haben, können Sie dies in den Standort ändern, an dem Ihre Azure-Ressource bereitgestellt wird (z. B. „eastus“).
 4. Prüfen Sie den Code im Skript und stellen Sie fest, dass zwei REST-Methoden aufgerufen werden: eine zum Abrufen eines Zugriffstokens und eine weitere zum Auflisten der Videos in Ihrem Konto.

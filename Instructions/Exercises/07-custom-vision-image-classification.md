@@ -46,7 +46,7 @@ In dieser Übung erstellen Sie **Custom Vision**-Ressourcen für Training und Vo
 
 Um ein Bildklassifizierungsmodell zu trainieren, müssen Sie ein Custom Vision-Projekt auf Grundlage Ihrer Trainingsressource erstellen. Dazu verwenden Sie das Custom Vision-Portal.
 
-1. Zeigen Sie in Visual Studio Code die Trainingsbilder im Ordner **LabFiles/07-custom-vision-image-classification/training-images** an, in den Sie das Repository geklont haben. Dieser Ordner enthält Unterordner mit Bildern von Äpfeln, Bananen und Organen.
+1. In Visual Studio Code finden Sie die Trainingsbilder in dem Ordner **Labfiles/07-custom-vision-image-classification/training-images**, in den Sie das Repository geklont haben. Dieser Ordner enthält Unterordner mit Bildern von Äpfeln, Bananen und Organen.
 2. Öffnen Sie auf einer neuen Browserregisterkarte das Custom Vision-Portal unter `https://customvision.ai`. Falls Sie dazu aufgefordert werden, melden Sie sich mit dem Microsoft-Konto an, das Ihrem Azure-Abonnement zugeordnet ist, und stimmen Sie den Nutzungsbedingungen zu.
 3. Erstellen Sie im Custom Vision-Portal ein neues Projekt mit den folgenden Einstellungen:
     - **Name**: Classify Fruit (Obst klassifizieren)
@@ -55,7 +55,7 @@ Um ein Bildklassifizierungsmodell zu trainieren, müssen Sie ein Custom Vision-P
     - **Projekttypen:** Klassifizierung
     - **Klassifizierungstypen**: Multiklassen-Klassifizierung (einzelnes Tag pro Bild)
     - **Domänen**: Lebensmittel
-4. Klicken Sie in dem neuen Projekt auf **\[+\]Bilder hinzufügen**, und wählen Sie alle Dateien in dem Ordner **LabFiles/07-custom-vision-image-classification/training-images/apple** aus, den Sie zuvor angesehen haben. Laden Sie anschließend die Bilddateien mit dem Tag *Apfel* hoch:
+4. Klicken Sie in dem neuen Projekt auf **\[+\]Bilder hinzufügen**, und wählen Sie alle Dateien in dem Ordner **Labfiles/07-custom-vision-image-classification/training-images/apple** aus, den Sie zuvor geöffnet haben. Laden Sie anschließend die Bilddateien mit dem Tag *Apfel* hoch:
 
 ![Hochladen eines Apfels mit dem Tag „Apfel“](../media/upload_apples.jpg)
    
